@@ -1,0 +1,16 @@
+<h1>Return</h1>
+
+<%= form_tag rental_return_path do %>
+  <%= label_tag 'Customer' %>
+  <%= select_tag(:customer_id, options_for_select(
+    Customer.all.collect{ |c| ["#{c.last_name}, #{c.first_name}", c.id] },
+    @selected_customer
+  ), include_blank: '-- Select a customer --', disabled: true) %>
+  <%= label_tag 'To Return' %>
+  <% @remaing_returns.each do |r| %>
+    <%= check_box_tag 'rental_ids[]', r.id %>
+    <%= label_tag "#{r.movie.title} (#{r.movie.year})" %>
+  <% end %>
+  <%= submit_tag 'Return' %>
+  <%= link_to 'Cancel', rental_return_path %>
+<% end %>

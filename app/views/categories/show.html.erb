@@ -1,0 +1,9 @@
+<h1 class="text-capitalize"><%= @category.name %> Movies</h1>
+<h2><%= pluralize(@category.movies.count, 'movie') %></h2>
+
+<% if admin? %>
+  <%= link_to 'Edit', edit_category_path(@category) %>
+<% end %>
+
+<%= render 'movies/list', movies: @movies %>
+<%= will_paginate @movies %>

@@ -1,0 +1,15 @@
+<% if customer? %>
+  <%= render 'customers/profile' %>
+  <%= link_to 'Lookup Another Email', logout_path, method: :delete %>
+<% else %>
+  <h1>Lookup Your Profile</h1>
+  <%= form_for(:session, url: profile_path) do |f| %>
+    <p>
+      <%= f.label :email %>
+      <%= f.email_field :email, placeholder: "Enter email" %>
+    </p>
+    <p>
+      <%= f.submit 'Lookup' %>
+    </p>
+  <% end %>
+<% end %>

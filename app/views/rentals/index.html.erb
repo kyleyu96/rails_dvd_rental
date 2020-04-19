@@ -1,0 +1,13 @@
+<h1>Rental History</h1>
+<% @rentals.each do |r| %>
+  <%= r.created_at.strftime("%Y-%m-%d") %>
+  <%= link_to "#{r.customer.last_name}, #{r.customer.first_name}",
+    customer_path(r.customer) %>
+  <%= link_to r.movie.title, movie_path(r.movie) %>
+  <% if !r.returned_at.blank? %>
+    <%= r.returned_at.strftime("%Y-%m-%d") %>
+  <% else %>
+    <i>Not returned yet</i>
+  <% end %>
+<% end %>
+<%= will_paginate @rentals %>

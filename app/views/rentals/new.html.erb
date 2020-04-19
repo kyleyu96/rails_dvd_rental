@@ -1,0 +1,19 @@
+<h1>Rent</h1>
+
+<%= form_tag rentals_path do %>
+  <%= label_tag 'Customer' %>
+  <%= select_tag(:customer_id, options_for_select(
+    Customer.all.collect{ |c| ["#{c.last_name}, #{c.first_name}", c.id] }
+  ), include_blank: '-- Select a customer --') %>
+  <%= label_tag 'Movies' %>
+  <%= select_tag('movie_ids[]', options_for_select(
+    @available_movies.collect{ |m| ["#{m.title} (#{m.year})", m.id] }
+  ), include_blank: '-- Select a movie --') %>
+  <%= select_tag('movie_ids[]', options_for_select(
+    @available_movies.collect{ |m| ["#{m.title} (#{m.year})", m.id] }
+  ), include_blank: '-- Select a movie --') %>
+  <%= select_tag('movie_ids[]', options_for_select(
+    @available_movies.collect{ |m| ["#{m.title} (#{m.year})", m.id] }
+  ), include_blank: '-- Select a movie --') %>
+  <%= submit_tag 'Rent' %>
+<% end %>

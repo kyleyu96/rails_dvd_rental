@@ -1,0 +1,11 @@
+<h1>Admin Log In</h1>
+
+<%= form_for(:admin_session, url: admin_path) do |f| %>
+  <p>
+    <%= f.label :password %>
+    <%= f.password_field :password, placeholder: 'Enter password' %>
+  </p>
+  <p>
+    <%= f.submit 'Log In' %>
+  </p>
+<% end %>

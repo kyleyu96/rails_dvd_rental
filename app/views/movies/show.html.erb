@@ -1,0 +1,31 @@
+<h1><%= @movie.title %></h1>
+
+<p>
+  Total Copies: <%= @movie.max_quantity %>
+  , In stock: <%= @movie.current_inventory %>
+</p>
+<% if admin? %>
+  <%= link_to 'Edit', edit_movie_path(@movie) %>
+<% end %>
+
+<%= image_tag @movie.poster_url %>
+<p><%= @movie.year %></p>
+<% if @movie.categories.any? %>
+  Categories: <%= render @movie.categories %>
+<% end %>
+<p><%= @movie.summary %></p>
+
+<%= link_to 'Back', :back %>
+
+<% if admin? %>
+  <% @movie.rentals.each do |r| %>
+    <%= r.created_at.strftime("%Y-%m-%d") %>
+    <%= link_to "#{r.customer.last_name}, #{r.customer.first_name}",
+    customer_path(r.customer) %>
+    <% if !r.returned_at.blank? %>
+      <%= r.returned_at.strftime("%Y-%m-%d") %>
+    <% else %>
+      <i>Not returned yet</i>
+    <% end %>
+  <% end %>
+<% end %>

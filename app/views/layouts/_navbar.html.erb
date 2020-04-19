@@ -1,0 +1,25 @@
+<%= link_to 'DVD Rental', root_path %>
+<%= link_to 'Movies', root_path %>
+<p>Categories</p>
+<% Category.all.each do |c| %>
+  <li class="text-capitalize">
+    <%= link_to "#{c.name} (#{c.movies.count})", category_path(c) %>
+  </li>
+<% end %>
+<% if admin? %>
+  <%= link_to 'Create New Category', new_category_path %>
+<% end %>
+
+<% if admin? %>
+  <p>View</p>
+    <%= link_to 'All Customers', customers_path %>
+    <%= link_to 'Full Rental History', rentals_path %>
+  <p>Actions</p>
+    <%= link_to 'Register New Customer', new_customer_path %>
+    <%= link_to 'Add New Movie', new_movie_path %>
+    <%= link_to 'Rent', new_rental_path %>
+    <%= link_to 'Return', rental_return_path %>
+  <%= link_to 'Exit', exit_path, method: :delete %>
+<% else %>
+  <%= link_to 'Your Profile', profile_path %>
+<% end %>

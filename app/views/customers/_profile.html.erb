@@ -1,0 +1,17 @@
+<p><%= @customer.last_name %>, <%= @customer.first_name %></p>
+<p>Phone: <%= @customer.phone %></p>
+<p>Email: <%= @customer.email %></p>
+<% if admin? %>
+  <%= link_to 'Edit', edit_customer_path(@customer) %>
+<% end %>
+
+<p>To return: <%= pluralize(@customer.rentals.select{ |r| r.returned_at.blank? }.count, 'DVD') %></p>
+<% @customer.rentals.each do |r| %>
+  <%= r.created_at.strftime("%Y-%m-%d") %>
+  <%= link_to r.movie.title, movie_path(r.movie) %>
+  <% if !r.returned_at.blank? %>
+    <%= r.returned_at.strftime("%Y-%m-%d") %>
+  <% else %>
+    <i>Not returned yet</i>
+  <% end %>
+<% end %>

@@ -1,0 +1,8 @@
+<h1>All Customers</h1>
+<% @customers.each do |c| %>
+  <%= link_to "#{c.last_name}, #{c.first_name}", customer_path(c) %>
+  <p>Total DVD rented: <%= pluralize(c.rentals.count, 'DVD') %></p>
+  <p>To return: <%= pluralize(c.rentals.select{ |r| r.returned_at.blank? }.count, 'DVD') %></p>
+  <%= link_to 'Edit', edit_customer_path(c) %>
+<% end %>
+<%= will_paginate @customers %>

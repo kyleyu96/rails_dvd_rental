@@ -1,0 +1,9 @@
+<h1>Return</h1>
+
+<%= form_tag rental_select_path do %>
+  <%= label_tag 'Customer' %>
+  <%= select_tag(:customer_id, options_for_select(
+    Customer.all.collect{ |c| ["#{c.last_name}, #{c.first_name}", c.id] }
+  ), include_blank: '-- Select a customer --') %>
+  <%= submit_tag 'Select' %>
+<% end %>

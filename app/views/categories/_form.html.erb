@@ -1,0 +1,10 @@
+<%= form_for @category do |f| %>
+  <p>
+    <%= f.label :name %>
+    <%= f.text_field :name, placeholder: 'Enter category name', autofocus: true %>
+  </p>
+  <p>
+    <%= f.submit @category.new_record? ? 'Create' : 'Update' %>
+    <%= link_to 'Cancel', @category.new_record? ? root_path : category_path(@category) %>
+  </p>
+<% end %>

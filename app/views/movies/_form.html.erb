@@ -1,0 +1,32 @@
+<%= form_for @movie do |f| %>
+  <p>
+    <%= f.label :title %>
+    <%= f.text_field :title, placeholder: 'Enter movie title' %>
+  </p>
+  <p>
+    <%= f.label :year %>
+    <%= f.number_field :year, in: 1800..2020, step: 1 %>
+  </p>
+  <p>
+    <%= f.label :summary, 'Plot' %>
+    <%= f.text_area :summary, rows: 5, placeholder: 'Enter movie plot' %>
+  </p>
+  <p>
+    <%= f.label :poster_url, 'Image' %>
+    <%= f.url_field :poster_url %>
+  </p>
+  <p>
+    <label>Categories</label>
+    <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |cb| %>
+      <% cb.label { cb.check_box + cb.text } %>
+    <% end %>
+  </p>
+  <p>
+    <%= f.label :max_quantity, 'Number of Copies' %>
+    <%= f.number_field :max_quantity, in: 1..5, step: 1 %>
+  </p>
+  <p>
+    <%= f.submit(@movie.new_record? ? 'Add' : 'Update') %>
+    <%= link_to 'Cancel', @movie.new_record? ? root_path : movie_path(@movie) %>
+  </p>
+<% end %>
