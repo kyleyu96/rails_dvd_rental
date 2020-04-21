@@ -29,7 +29,7 @@
                   <% if !r.returned_at.blank? %>
                     <%= r.returned_at.strftime("%Y-%m-%d") %>
                   <% else %>
-                    <i>Not returned yet</i>
+                    <i class="red-text">Not returned yet</i>
                   <% end %>
                 </td>
                 <td><%= link_to r.movie.title, movie_path(r.movie) %></td>
