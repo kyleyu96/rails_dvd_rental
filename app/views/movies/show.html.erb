@@ -26,7 +26,7 @@
       <div class="right-align">
         <%= link_to 'Back', :back, class: "waves-effect waves-teal btn space-top" %>
       </div>
-      <% if admin? %>
+      <% if admin? && !@movie.rentals.blank? %>
         <table class="highlight responsive-table space-top-more">
           <thead>
             <tr>
