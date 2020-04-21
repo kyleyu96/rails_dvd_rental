@@ -6,5 +6,4 @@ class Movie < ApplicationRecord
   validates :max_quantity, numericality: { greater_than: 0 }
   validates :current_inventory, numericality: { greater_than_or_equal_to: 0 }
   default_scope -> { order(year: :desc, created_at: :desc) }
-  default_scope -> { order(last_name: :asc, first_name: :asc) }
 end
