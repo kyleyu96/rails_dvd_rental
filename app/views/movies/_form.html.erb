@@ -1,32 +1,55 @@
-<%= form_for @movie do |f| %>
-  <p>
-    <%= f.label :title %>
-    <%= f.text_field :title, placeholder: 'Enter movie title' %>
-  </p>
-  <p>
-    <%= f.label :year %>
-    <%= f.number_field :year, in: 1800..2020, step: 1 %>
-  </p>
-  <p>
-    <%= f.label :summary, 'Plot' %>
-    <%= f.text_area :summary, rows: 5, placeholder: 'Enter movie plot' %>
-  </p>
-  <p>
-    <%= f.label :poster_url, 'Image' %>
-    <%= f.url_field :poster_url %>
-  </p>
-  <p>
-    <label>Categories</label>
-    <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |cb| %>
-      <% cb.label { cb.check_box + cb.text } %>
-    <% end %>
-  </p>
-  <p>
-    <%= f.label :max_quantity, 'Number of Copies' %>
-    <%= f.number_field :max_quantity, in: 1..5, step: 1 %>
-  </p>
-  <p>
-    <%= f.submit(@movie.new_record? ? 'Add' : 'Update') %>
-    <%= link_to 'Cancel', @movie.new_record? ? root_path : movie_path(@movie) %>
-  </p>
-<% end %>
+<div class="row">
+  <%= form_for(@movie, html: { class: "col s12" }) do |f| %>
+    <div class="row no-space">
+      <div class="input-field col s12">
+        <%= f.text_field :title, placeholder: 'Enter movie title' %>
+        <%= f.label :title, class: "active" %>
+      </div>
+    </div>
+    <div class="row no-space">
+      <div class="input-field col s12">
+        <%= f.text_field :year, placeholder: 'Enter release year' %>
+        <%= f.label :year, class: "active" %>
+      </div>
+    </div>
+    <div class="row no-space">
+      <div class="input-field col s12">
+        <%= f.text_area :summary, rows: 5, placeholder: 'Enter movie plot', class: "materialize-textarea" %>
+        <%= f.label :summary, 'Plot', class: "active" %>
+      </div>
+    </div>
+    <div class="row no-space">
+      <div class="input-field col s12">
+        <%= f.text_field :poster_url, placeholder: 'Enter poster image url' %>
+        <%= f.label :poster_url, 'Image Url', class: "active" %>
+      </div>
+    </div>
+    <div class="row no-space">
+      <div class="input-field col s12 no-space">
+        <p>Categories</p>
+        <% Category.all.each do |c| %>
+          <p>
+            <label>
+              <%= check_box_tag 'movie[category_ids][]', c.id,
+                checked=@movie.categories.include?(c)
+              %>
+              <span><%= c.name %></span>
+            </label>
+          </p>
+        <% end %>
+      </div>
+    </div>
+    <div class="row no-space">
+      <div class="input-field col s12">
+        <%= f.number_field :max_quantity, in: 1..10, step: 1 %>
+        <%= f.label :max_quantity, 'Number of Copies', class: "active" %>
+      </div>
+    </div>
+    <div class="row no-space">
+      <div class="input-field col s12">
+        <%= f.submit @movie.new_record? ? 'Add' : 'Update', class: "waves-light btn" %>
+        <%= link_to 'Cancel', @movie.new_record? ? root_path : movie_path(@movie), class: "waves-light btn grey" %>
+      </div>
+    </div>
+  <% end %>
+</div>

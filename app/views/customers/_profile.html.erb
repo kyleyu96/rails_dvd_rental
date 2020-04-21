@@ -1,17 +1,44 @@
-<p><%= @customer.last_name %>, <%= @customer.first_name %></p>
-<p>Phone: <%= @customer.phone %></p>
-<p>Email: <%= @customer.email %></p>
-<% if admin? %>
-  <%= link_to 'Edit', edit_customer_path(@customer) %>
-<% end %>
-
-<p>To return: <%= pluralize(@customer.rentals.select{ |r| r.returned_at.blank? }.count, 'DVD') %></p>
-<% @customer.rentals.each do |r| %>
-  <%= r.created_at.strftime("%Y-%m-%d") %>
-  <%= link_to r.movie.title, movie_path(r.movie) %>
-  <% if !r.returned_at.blank? %>
-    <%= r.returned_at.strftime("%Y-%m-%d") %>
-  <% else %>
-    <i>Not returned yet</i>
-  <% end %>
-<% end %>
+<div class="row space-top-more">
+  <div class="col s12 m10 offset-m1">
+    <div class="card-panel">
+      <h4 class="center-align page-title">
+        <%= @customer.last_name %>, <%= @customer.first_name %>
+      </h4>
+      <% if admin? %>
+        <div class="right-align">
+          <%= link_to 'Edit', edit_customer_path(@customer) %>
+        </div>
+      <% end %>
+      <p>Phone: <%= @customer.phone %></p>
+      <p>Email: <%= @customer.email %></p>
+      <p>To return: <%= pluralize(@customer.rentals.select{ |r| r.returned_at.blank? }.count, 'DVD') %></p>
+      <table class="highlight responsive-table">
+        <thead>
+          <tr>
+            <th>Rented on</th>
+            <th>Returned on</th>
+            <th>Movie</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @customer.rentals.each do |r| %>
+            <tr>
+              <td><%= r.created_at.strftime("%Y-%m-%d") %></td>
+              <td>
+                <% if !r.returned_at.blank? %>
+                  <%= r.returned_at.strftime("%Y-%m-%d") %>
+                <% else %>
+                  <i>Not returned yet</i>
+                <% end %>
+              </td>
+              <td><%= link_to r.movie.title, movie_path(r.movie) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <% if !admin? %>
+        <%= link_to 'Lookup Another Email', logout_path, method: :delete, class: "waves-effect waves-teal btn space-top" %>
+      <% end %>
+    </div>
+  </div>
+</div>

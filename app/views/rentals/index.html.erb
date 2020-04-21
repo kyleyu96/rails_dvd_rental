@@ -1,13 +1,39 @@
-<h1>Rental History</h1>
-<% @rentals.each do |r| %>
-  <%= r.created_at.strftime("%Y-%m-%d") %>
-  <%= link_to "#{r.customer.last_name}, #{r.customer.first_name}",
-    customer_path(r.customer) %>
-  <%= link_to r.movie.title, movie_path(r.movie) %>
-  <% if !r.returned_at.blank? %>
-    <%= r.returned_at.strftime("%Y-%m-%d") %>
-  <% else %>
-    <i>Not returned yet</i>
-  <% end %>
-<% end %>
-<%= will_paginate @rentals %>
+<div class="row space-top-more">
+  <div class="col s12 m10 offset-m1">
+    <div class="card-panel">
+      <h4 class="center-align page-title">Rental History</h4>
+      <table class="highlight responsive-table">
+        <thead>
+          <tr>
+            <th>Rented on</th>
+            <th>Returned on</th>
+            <th>Customer</th>
+            <th>Movie</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @rentals.each do |r| %>
+            <tr>
+              <td><%= r.created_at.strftime("%Y-%m-%d") %></td>
+              <td>
+                <% if !r.returned_at.blank? %>
+                  <%= r.returned_at.strftime("%Y-%m-%d") %>
+                <% else %>
+                  <i>Not returned yet</i>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to "#{r.customer.last_name}, #{r.customer.first_name}",
+                customer_path(r.customer) %>
+              </td>
+              <td><%= link_to r.movie.title, movie_path(r.movie) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="space-top center-align">
+        <%= will_paginate @rentals %>
+      </div>
+    </div>
+  </div>
+</div>

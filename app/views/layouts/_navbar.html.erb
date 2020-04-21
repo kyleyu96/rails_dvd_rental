@@ -1,25 +1,78 @@
-<%= link_to 'DVD Rental', root_path %>
-<%= link_to 'Movies', root_path %>
-<p>Categories</p>
-<% Category.all.each do |c| %>
-  <li class="text-capitalize">
-    <%= link_to "#{c.name} (#{c.movies.count})", category_path(c) %>
+<ul id="category_dropdown" class="dropdown-content">
+  <% Category.all.each do |c| %>
+    <li><%= link_to "#{c.name} (#{c.movies.count})", category_path(c) %></li>
+  <% end %>
+  <% if admin? %>
+    <li class="divider"></li>
+    <li><%= link_to 'Create New Category', new_category_path %></li>
+  <% end %>
+</ul>
+<ul id="admin_actions" class="dropdown-content">
+  <li><%= link_to 'Register New Customer', new_customer_path %></li>
+  <li><%= link_to 'Add Movie', new_movie_path %></li>
+  <li><%= link_to 'Rent', new_rental_path %></li>
+  <li><%= link_to 'Return', rental_return_path %></li>
+</ul>
+<ul id="category_dropdown_mobile" class="dropdown-content">
+  <% Category.all.each do |c| %>
+    <li><%= link_to "#{c.name} (#{c.movies.count})", category_path(c) %></li>
+  <% end %>
+  <% if admin? %>
+    <li class="divider"></li>
+    <li><%= link_to 'Create New Category', new_category_path %></li>
+  <% end %>
+</ul>
+<ul id="admin_actions_mobile" class="dropdown-content">
+  <li><%= link_to 'Register New Customer', new_customer_path %></li>
+  <li><%= link_to 'Add Movie', new_movie_path %></li>
+  <li><%= link_to 'Rent', new_rental_path %></li>
+  <li><%= link_to 'Return', rental_return_path %></li>
+</ul>
+<ul class="sidenav" id="mobile-menu">
+  <li>
+    <a class="dropdown-trigger" href="#!" data-target="category_dropdown_mobile">
+      Movie Categories<i class="material-icons right">arrow_drop_down</i>
+    </a>
   </li>
-<% end %>
-<% if admin? %>
-  <%= link_to 'Create New Category', new_category_path %>
-<% end %>
-
-<% if admin? %>
-  <p>View</p>
-    <%= link_to 'All Customers', customers_path %>
-    <%= link_to 'Full Rental History', rentals_path %>
-  <p>Actions</p>
-    <%= link_to 'Register New Customer', new_customer_path %>
-    <%= link_to 'Add New Movie', new_movie_path %>
-    <%= link_to 'Rent', new_rental_path %>
-    <%= link_to 'Return', rental_return_path %>
-  <%= link_to 'Exit', exit_path, method: :delete %>
-<% else %>
-  <%= link_to 'Your Profile', profile_path %>
-<% end %>
+  <% if admin? %>
+    <li><%= link_to 'All Customers', customers_path %></li>
+    <li><%= link_to 'Rental History', rentals_path %></li>
+    <li>
+      <a class="dropdown-trigger" href="#!" data-target="admin_actions_mobile">
+        Actions<i class="material-icons right">arrow_drop_down</i>
+      </a>
+    </li>
+    <li><%= link_to 'Exit', exit_path, method: :delete %></li>
+  <% else %>
+    <li><%= link_to 'Your Profile', profile_path %></li>
+  <% end %>
+</ul>
+<nav>
+  <div class="container">
+    <div class="nav-wrapper">
+      <%= link_to 'Movies', root_path, class: "brand-logo" %>
+      <a href="#" data-target="mobile-menu" class="sidenav-trigger">
+        <i class="material-icons">menu</i>
+      </a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li>
+          <a class="dropdown-trigger" href="#!" data-target="category_dropdown">
+            Movie Categories<i class="material-icons right">arrow_drop_down</i>
+          </a>
+        </li>
+        <% if admin? %>
+          <li><%= link_to 'All Customers', customers_path %></li>
+          <li><%= link_to 'Rental History', rentals_path %></li>
+          <li>
+            <a class="dropdown-trigger" href="#!" data-target="admin_actions">
+              Actions<i class="material-icons right">arrow_drop_down</i>
+            </a>
+          </li>
+          <li><%= link_to 'Exit', exit_path, method: :delete %></li>
+        <% else %>
+          <li><%= link_to 'Your Profile', profile_path %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

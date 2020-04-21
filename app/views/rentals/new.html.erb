@@ -1,19 +1,50 @@
-<h1>Rent</h1>
-
-<%= form_tag rentals_path do %>
-  <%= label_tag 'Customer' %>
-  <%= select_tag(:customer_id, options_for_select(
-    Customer.all.collect{ |c| ["#{c.last_name}, #{c.first_name}", c.id] }
-  ), include_blank: '-- Select a customer --') %>
-  <%= label_tag 'Movies' %>
-  <%= select_tag('movie_ids[]', options_for_select(
-    @available_movies.collect{ |m| ["#{m.title} (#{m.year})", m.id] }
-  ), include_blank: '-- Select a movie --') %>
-  <%= select_tag('movie_ids[]', options_for_select(
-    @available_movies.collect{ |m| ["#{m.title} (#{m.year})", m.id] }
-  ), include_blank: '-- Select a movie --') %>
-  <%= select_tag('movie_ids[]', options_for_select(
-    @available_movies.collect{ |m| ["#{m.title} (#{m.year})", m.id] }
-  ), include_blank: '-- Select a movie --') %>
-  <%= submit_tag 'Rent' %>
-<% end %>
+<div class="row space-top-more">
+  <div class="col s12 m10 l8 offset-m1 offset-l2">
+    <div class="card-panel">
+      <h4 class="center-align">Rent</h4>
+      <div class="row">
+        <%= form_tag(rentals_path, html: { class: "col s12" }) do %>
+          <div class="row no-space">
+            <div class="input-field col s12">
+              <%= select_tag(:customer_id, options_for_select(
+                Customer.all.collect{ |c| ["#{c.last_name}, #{c.first_name}", c.id] }
+              ), include_blank: '-- Select a customer --') %>
+              <%= label_tag 'Customer' %>
+            </div>
+          </div>
+          <div class="row no-space">
+            <div class="input-field col s12 no-space">
+              <p>Movies (max 3)</p>
+            </div>
+          </div>
+          <div class="row no-space">
+            <div class="input-field col s12 no-space">
+              <%= select_tag('movie_ids[]', options_for_select(
+                @available_movies.collect{ |m| ["#{m.title} (#{m.year})", m.id] }
+              ), include_blank: '-- Select a movie --') %>
+            </div>
+          </div>
+          <div class="row no-space">
+            <div class="input-field col s12 no-space">
+              <%= select_tag('movie_ids[]', options_for_select(
+                @available_movies.collect{ |m| ["#{m.title} (#{m.year})", m.id] }
+              ), include_blank: '-- Select a movie --') %>
+            </div>
+          </div>
+          <div class="row no-space">
+            <div class="input-field col s12 no-space">
+              <%= select_tag('movie_ids[]', options_for_select(
+                @available_movies.collect{ |m| ["#{m.title} (#{m.year})", m.id] }
+              ), include_blank: '-- Select a movie --') %>
+            </div>
+          </div>
+          <div class="row no-space">
+            <div class="input-field col s12">
+              <%= submit_tag 'Rent', class: "waves-light btn" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

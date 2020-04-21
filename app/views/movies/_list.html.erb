@@ -1,12 +1,25 @@
-<% movies.each do |m| %>
-  <h3><%= link_to "#{m.title} (#{m.year})", movie_path(m) %></h3>
-  <%= image_tag m.poster_url %>
-  <% if m.current_inventory > 0 %>
-    <p><%= pluralize(m.current_inventory, 'copy') %> in store</p>
-  <% else %>
-    <p>Out of stock</p>
+<div class="row">
+  <% movies.each do |m| %>
+    <div class="col s12 m3">
+      <div class="card medium">
+        <div class="card-image">
+          <%= image_tag m.poster_url %>
+        </div>
+        <div class="card-content card-content-customize">
+          <strong><%= link_to "#{m.title} (#{m.year})", movie_path(m) %></strong>
+          <% if m.current_inventory > 0 %>
+            <p><%= pluralize(m.current_inventory, 'copy') %> in store</p>
+          <% else %>
+            <p class="red-text">Out of stock</p>
+          <% end %>
+        </div>
+        <div class="card-action">
+          <%= link_to 'View', movie_path(m) %>
+          <% if admin? %>
+            <%= link_to 'Edit', edit_movie_path(m) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
   <% end %>
-  <% if admin? %>
-    <%= link_to 'Edit', edit_movie_path(m) %>
-  <% end %>
-<% end %>
+</div>

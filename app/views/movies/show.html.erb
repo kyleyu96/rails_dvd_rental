@@ -1,31 +1,60 @@
-<h1><%= @movie.title %></h1>
-
-<p>
-  Total Copies: <%= @movie.max_quantity %>
-  , In stock: <%= @movie.current_inventory %>
-</p>
-<% if admin? %>
-  <%= link_to 'Edit', edit_movie_path(@movie) %>
-<% end %>
-
-<%= image_tag @movie.poster_url %>
-<p><%= @movie.year %></p>
-<% if @movie.categories.any? %>
-  Categories: <%= render @movie.categories %>
-<% end %>
-<p><%= @movie.summary %></p>
-
-<%= link_to 'Back', :back %>
-
-<% if admin? %>
-  <% @movie.rentals.each do |r| %>
-    <%= r.created_at.strftime("%Y-%m-%d") %>
-    <%= link_to "#{r.customer.last_name}, #{r.customer.first_name}",
-    customer_path(r.customer) %>
-    <% if !r.returned_at.blank? %>
-      <%= r.returned_at.strftime("%Y-%m-%d") %>
-    <% else %>
-      <i>Not returned yet</i>
-    <% end %>
-  <% end %>
-<% end %>
+<div class="row space-top-more">
+  <div class="col s12 m10 offset-m1">
+    <div class="card-panel">
+      <h4 class="center-align page-title">
+        <%= "#{@movie.title} (#{@movie.year})" %>
+      </h4>
+      <% if admin? %>
+        <div class="right-align">
+          <%= link_to 'Edit', edit_movie_path(@movie) %>
+        </div>
+      <% end %>
+      <div class="row no-space">
+        <div class="col s6">
+          <%= image_tag @movie.poster_url, class: "poster-image" %>
+        </div>
+        <div class="col s6">
+          <strong>Plot</strong>
+          <p><%= @movie.summary %></p>
+          <% if @movie.categories.any? %>
+            <strong>Categories: </strong><%= render @movie.categories %>
+          <% end %>
+          <p>Total Copies: <%= @movie.max_quantity %></p>
+          <p>In stock: <%= @movie.current_inventory %></p>
+        </div>
+      </div>
+      <div class="right-align">
+        <%= link_to 'Back', :back, class: "waves-effect waves-teal btn space-top" %>
+      </div>
+      <% if admin? %>
+        <table class="highlight responsive-table space-top-more">
+          <thead>
+            <tr>
+              <th>Rented on</th>
+              <th>Returned on</th>
+              <th>Customer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @movie.rentals.each do |r| %>
+              <tr>
+                <td><%= r.created_at.strftime("%Y-%m-%d") %></td>
+                <td>
+                  <% if !r.returned_at.blank? %>
+                    <%= r.returned_at.strftime("%Y-%m-%d") %>
+                  <% else %>
+                    <i>Not returned yet</i>
+                  <% end %>
+                </td>
+                <td>
+                  <%= link_to "#{r.customer.last_name}, #{r.customer.first_name}",
+                  customer_path(r.customer) %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</div>

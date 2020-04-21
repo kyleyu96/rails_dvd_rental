@@ -21,13 +21,18 @@ class ReturnsController < ApplicationController
   end
 
   def create
-    customer = Rental.find(params[:rental_ids][0]).customer
-    params[:rental_ids].each do |r_id|
-      rental = Rental.find(r_id)
-      rental.update(returned_at: Time.now)
-      rental.movie.update(current_inventory: rental.movie.current_inventory + 1)
+    if params[:rental_ids].blank?
+      flash[:danger] = 'Select at least one DVD to return.'
+      redirect_to rental_return_path
+    else
+      customer = Rental.find(params[:rental_ids][0]).customer
+      params[:rental_ids].each do |r_id|
+        rental = Rental.find(r_id)
+        rental.update(returned_at: Time.now)
+        rental.movie.update(current_inventory: rental.movie.current_inventory + 1)
+      end
+      redirect_to customer_path(customer)
     end
-    redirect_to customer_path(customer)
   end
 
 end

@@ -1,3 +1,5 @@
-<h1>All Movies</h1>
+<h4 class="page-title">All Movies</h4>
 <%= render 'list', movies: @movies %>
-<%= will_paginate @movies %>
+<div class="space-top center-align">
+  <%= will_paginate @movies %>
+</div>

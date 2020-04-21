@@ -1,9 +1,24 @@
-<h1>Return</h1>
-
-<%= form_tag rental_select_path do %>
-  <%= label_tag 'Customer' %>
-  <%= select_tag(:customer_id, options_for_select(
-    Customer.all.collect{ |c| ["#{c.last_name}, #{c.first_name}", c.id] }
-  ), include_blank: '-- Select a customer --') %>
-  <%= submit_tag 'Select' %>
-<% end %>
+<div class="row space-top-more">
+  <div class="col s12 m10 l8 offset-m1 offset-l2">
+    <div class="card-panel">
+      <h4 class="center-align">Return</h4>
+      <div class="row">
+        <%= form_tag(rental_select_path, html: { class: "col s12" }) do %>
+          <div class="row no-space">
+            <div class="input-field col s12">
+              <%= select_tag(:customer_id, options_for_select(
+                Customer.all.collect{ |c| ["#{c.last_name}, #{c.first_name}", c.id] }
+              ), include_blank: '-- Select a customer --') %>
+              <%= label_tag 'Customer' %>
+            </div>
+          </div>
+          <div class="row no-space">
+            <div class="input-field col s12">
+              <%= submit_tag 'Select', class: "waves-light btn" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

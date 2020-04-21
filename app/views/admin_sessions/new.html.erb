@@ -1,11 +1,22 @@
-<h1>Admin Log In</h1>
-
-<%= form_for(:admin_session, url: admin_path) do |f| %>
-  <p>
-    <%= f.label :password %>
-    <%= f.password_field :password, placeholder: 'Enter password' %>
-  </p>
-  <p>
-    <%= f.submit 'Log In' %>
-  </p>
-<% end %>
+<div class="row space-top-more">
+  <div class="col s12 m10 l8 offset-m1 offset-l2">
+    <div class="card-panel">
+      <h4 class="center-align">Admin Log In</h4>
+      <div class="row">
+        <%= form_for(:admin_session, url: admin_path, html: { class: "col s12" }) do |f| %>
+          <div class="row no-space">
+            <div class="input-field col s12">
+              <%= f.password_field :password, placeholder: 'Enter password' %>
+              <%= f.label :password, class: "active" %>
+            </div>
+          </div>
+          <div class="row no-space">
+            <div class="input-field col s12">
+              <%= f.submit 'Log In', class: "waves-light btn" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

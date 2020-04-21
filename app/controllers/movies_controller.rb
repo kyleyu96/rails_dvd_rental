@@ -26,7 +26,10 @@ class MoviesController < ApplicationController
   end
 
   def update
+    updated_inventory = @movie.current_inventory +
+      params[:movie][:max_quantity].to_i - @movie.max_quantity
     if @movie.update(movie_params)
+      @movie.update(current_inventory: updated_inventory)
       flash[:success] = 'Movie updated.'
       redirect_to movie_path(@movie)
     else

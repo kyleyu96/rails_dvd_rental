@@ -1,15 +1,26 @@
 <% if customer? %>
   <%= render 'customers/profile' %>
-  <%= link_to 'Lookup Another Email', logout_path, method: :delete %>
 <% else %>
-  <h1>Lookup Your Profile</h1>
-  <%= form_for(:session, url: profile_path) do |f| %>
-    <p>
-      <%= f.label :email %>
-      <%= f.email_field :email, placeholder: "Enter email" %>
-    </p>
-    <p>
-      <%= f.submit 'Lookup' %>
-    </p>
-  <% end %>
+  <div class="row space-top-more">
+    <div class="col s12 m10 l8 offset-m1 offset-l2">
+      <div class="card-panel">
+        <h4 class="center-align">Lookup Your Profile</h4>
+        <div class="row">
+          <%= form_for(:session, url: profile_path, html: { class: "col s12" }) do |f| %>
+            <div class="row no-space">
+              <div class="input-field col s12">
+                <%= f.email_field :email, placeholder: "Enter your email address", autofocus: true %>
+                <%= f.label :email, class: "active" %>
+              </div>
+            </div>
+            <div class="row no-space">
+              <div class="input-field col s12">
+                <%= f.submit 'Lookup', class: "waves-light btn" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 <% end %>

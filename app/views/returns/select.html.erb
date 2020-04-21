@@ -1,16 +1,39 @@
-<h1>Return</h1>
-
-<%= form_tag rental_return_path do %>
-  <%= label_tag 'Customer' %>
-  <%= select_tag(:customer_id, options_for_select(
-    Customer.all.collect{ |c| ["#{c.last_name}, #{c.first_name}", c.id] },
-    @selected_customer
-  ), include_blank: '-- Select a customer --', disabled: true) %>
-  <%= label_tag 'To Return' %>
-  <% @remaing_returns.each do |r| %>
-    <%= check_box_tag 'rental_ids[]', r.id %>
-    <%= label_tag "#{r.movie.title} (#{r.movie.year})" %>
-  <% end %>
-  <%= submit_tag 'Return' %>
-  <%= link_to 'Cancel', rental_return_path %>
-<% end %>
+<div class="row space-top-more">
+  <div class="col s12 m10 l8 offset-m1 offset-l2">
+    <div class="card-panel">
+      <h4 class="center-align">Return</h4>
+      <div class="row">
+        <%= form_tag(rental_return_path, html: { class: "col s12" }) do %>
+          <div class="row no-space">
+            <div class="input-field col s12">
+                <%= select_tag(:customer_id, options_for_select(
+                  Customer.all.collect{ |c| ["#{c.last_name}, #{c.first_name}", c.id] },
+                  @selected_customer
+                ), include_blank: '-- Select a customer --', disabled: true) %>
+                <%= label_tag 'Customer' %>
+            </div>
+          </div>
+          <div class="row no-space">
+            <div class="input-field col s12">
+              <p>Movies to return</p>
+              <% @remaing_returns.each do |r| %>
+                <p>
+                  <label>
+                    <%= check_box_tag 'rental_ids[]', r.id %>
+                    <span><%= "#{r.movie.title} (#{r.movie.year})" %></span>
+                  </label>
+                </p>
+              <% end %>
+            </div>
+          </div>
+          <div class="row no-space">
+            <div class="input-field col s12">
+              <%= submit_tag 'Return', class: "waves-light btn" %>
+              <%= link_to 'Cancel', rental_return_path, class: "waves-light btn grey" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

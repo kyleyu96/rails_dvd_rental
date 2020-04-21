@@ -1,8 +1,16 @@
 <% if obj.errors.any? %>
-  <h2><%= pluralize(obj.errors.count, 'Error') %>:</h2>
-  <ul>
-    <% obj.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-  </ul>
+  <div class="row space-top">
+    <div class="col s12">
+      <div class="card-panel red lighten-2 no-space">
+        <span class="white-text">
+          <strong><%= pluralize(obj.errors.count, 'Error') %>:</strong>
+          <ul>
+            <% obj.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </span>
+      </div>
+    </div>
+  </div>
 <% end %>

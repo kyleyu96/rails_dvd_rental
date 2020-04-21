@@ -1,8 +1,30 @@
-<h1>All Customers</h1>
-<% @customers.each do |c| %>
-  <%= link_to "#{c.last_name}, #{c.first_name}", customer_path(c) %>
-  <p>Total DVD rented: <%= pluralize(c.rentals.count, 'DVD') %></p>
-  <p>To return: <%= pluralize(c.rentals.select{ |r| r.returned_at.blank? }.count, 'DVD') %></p>
-  <%= link_to 'Edit', edit_customer_path(c) %>
-<% end %>
-<%= will_paginate @customers %>
+<div class="row space-top-more">
+  <div class="col s12 m10 offset-m1">
+    <div class="card-panel">
+      <h4 class="center-align page-title">All Customers</h4>
+      <table class="highlight responsive-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Total DVD rented</th>
+            <th>To return</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @customers.each do |c| %>
+            <tr>
+              <td><%= link_to "#{c.last_name}, #{c.first_name}", customer_path(c) %></td>
+              <td><%= pluralize(c.rentals.count, 'DVD') %></td>
+              <td><%= pluralize(c.rentals.select{ |r| r.returned_at.blank? }.count, 'DVD') %></td>
+              <td><%= link_to 'Edit', edit_customer_path(c) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="space-top center-align">
+        <%= will_paginate @customers %>
+      </div>
+    </div>
+  </div>
+</div>
